@@ -41,10 +41,10 @@ public class Map {
         map.entities.put(new Coordinates(0, 10), new Rock(new Coordinates(0, 10)));
         map.entities.put(new Coordinates(3, 10), new Grass(new Coordinates(3, 10)));
         map.entities.put(new Coordinates(5, 7), new Tree(new Coordinates(5, 7)));
-        map.entities.put(new Coordinates(7, 5), new Herbivore(new Coordinates(7, 5)));
-        map.entities.put(new Coordinates(8, 4), new Predator(new Coordinates(8, 4)));
-        map.entities.put(new Coordinates(9, 2), new Predator(new Coordinates(9, 2)));
-        map.entities.put(new Coordinates(10, 0), new Herbivore(new Coordinates(10, 0)));
+        map.entities.put(new Coordinates(7, 5), new Herbivore(new Coordinates(7, 5), 1, 10));
+        map.entities.put(new Coordinates(8, 4), new Predator(new Coordinates(8, 4), 2, 10, 1));
+        map.entities.put(new Coordinates(9, 2), new Predator(new Coordinates(9, 2), 2, 10, 2));
+        map.entities.put(new Coordinates(10, 0), new Herbivore(new Coordinates(10, 0), 1, 10));
 
         return map;
     }
@@ -58,6 +58,11 @@ public class Map {
         return entities.get(coordinates);
     }
 
+    /**
+     * Проверяет есть ли сущность на карте по координатам
+     * @param coordinates координаты предполагаемой сущности
+     * @return результат проверки
+     */
     public boolean contains(Coordinates coordinates) {
         return entities.containsKey(coordinates);
     }
@@ -88,4 +93,17 @@ public class Map {
         this.sizeY = sizeY;
     }
 
+    /**
+     * Проверяет возможна ли переданная координата в рамках текущей карты
+     * @param coordinates координата
+     * @return результат проверки
+     */
+    public boolean isCoordinatesLegal(Coordinates coordinates) {
+        if (coordinates.getX() > sizeX || coordinates.getY() > sizeY ||
+             coordinates.getX() < 0 || coordinates.getY() < 0) {
+            return false;
+        }
+
+        return true;
+    }
 }
