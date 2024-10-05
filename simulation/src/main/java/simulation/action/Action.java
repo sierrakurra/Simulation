@@ -11,7 +11,7 @@ public abstract class Action {
     /**
      * Карта мира
      */
-    private Map map;
+    protected Map map;
 
     public Action(Map map) {
         this.map = map;

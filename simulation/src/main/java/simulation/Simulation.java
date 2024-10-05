@@ -1,6 +1,10 @@
 package simulation;
 
 import simulation.action.Action;
+import simulation.action.ArrangeAction;
+import simulation.action.MoveAction;
+import simulation.action.RenderAction;
+import simulation.render.MapRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,26 +34,31 @@ public class Simulation {
 
     public Simulation(Map map) {
         this.map = map;
-    }
-
-    /**
-     * Выполняет симуляцию и рендер для одного хода
-     */
-    public void nextTurn() {
-        // TODO: realize
+        initActions.add(new ArrangeAction(map));
+        turnActions.add(new RenderAction(map));
+        turnActions.add(new MoveAction(map));
+        turnActions.add(new RenderAction(map));
     }
 
     /**
      * Выполняет бесконечную симуляцию и рендер
      */
     public void startSimulation() {
-        // TODO: realize
+        initActions.forEach(Action::act);
+        turnActions.forEach(Action::act);
     }
 
     /**
      * Приостанавливает бесконечную симуляцию и рендер
      */
     public void pauseSimulation() {
+        // TODO: realize
+    }
+
+    /**
+     * Выполняет симуляцию и рендер для одного хода
+     */
+    private void nextTurn() {
         // TODO: realize
     }
 
