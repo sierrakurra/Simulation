@@ -16,5 +16,7 @@ public class RenderAction extends Action {
             throw new RuntimeException(e);
         }
         MapRenderer.render(map);
+
+        System.out.println("\n\n\n");
     }
 }

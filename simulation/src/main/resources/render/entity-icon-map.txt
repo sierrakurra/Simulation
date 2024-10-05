@@ -1,9 +1,5 @@
 Herbivore:🐇
-Herbivore:🐏
-Herbivore:🐄
 Predator:🐅
-Predator:🐆
-Predator:🐺
 Grass:🌿
 Tree:🌳
 Rock:🗿
