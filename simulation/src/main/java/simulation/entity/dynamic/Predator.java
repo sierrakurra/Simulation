@@ -52,6 +52,7 @@ public class Predator extends Creature {
                 resultMoveCoordinate = newResultCoordinatesWithOffset(resultMoveCoordinate);
             }
         }
+        entities.put(resultMoveCoordinate, this);
         coordinates = resultMoveCoordinate;
     }
 
