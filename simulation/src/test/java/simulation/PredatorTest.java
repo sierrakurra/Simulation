@@ -34,10 +34,9 @@ public class PredatorTest {
 
         predator.makeMove(map);
         assertNotNull(predator);
-        assertEquals(herbivoreCoordinates, predator.getCoordinates());
-        assertNull(entities.get(startUpCoordinates));
-
-        assertFalse(entities.entrySet().stream().anyMatch(e -> e.getValue() instanceof Grass));
+        assertEquals(startUpCoordinates, predator.getCoordinates());
+        assertNotNull(entities.get(herbivoreCoordinates));
+        assertEquals(9, ((Herbivore) entities.get(herbivoreCoordinates)).getHP());
     }
 
     @Test
@@ -55,10 +54,9 @@ public class PredatorTest {
         oldCoordinates = predator.getCoordinates();
         predator.makeMove(map);
         assertNotNull(predator);
-        assertEquals(herbivoreCoordinates, predator.getCoordinates());
-        assertNull(entities.get(oldCoordinates));
-
-        assertFalse(entities.entrySet().stream().anyMatch(e -> e.getValue() instanceof Herbivore));
+        assertEquals(oldCoordinates, predator.getCoordinates());
+        assertNotNull(entities.get(herbivoreCoordinates));
+        assertEquals(9, ((Herbivore) entities.get(herbivoreCoordinates)).getHP());
     }
 
     @Test
@@ -70,10 +68,9 @@ public class PredatorTest {
         Coordinates oldCoordinates = predator.getCoordinates();
         predator.makeMove(map);
         assertNotNull(predator);
-        assertEquals(new Coordinates(0, 1), predator.getCoordinates());
-        assertNull(entities.get(oldCoordinates));
-
-        assertFalse(entities.entrySet().stream().anyMatch(e -> e.getValue() instanceof Herbivore));
+        assertEquals(oldCoordinates, predator.getCoordinates());
+        assertNotNull(entities.get(herbivoreCoordinates));
+        assertEquals(9, ((Herbivore) entities.get(herbivoreCoordinates)).getHP());
     }
 
     @Test
@@ -117,11 +114,10 @@ public class PredatorTest {
         oldCoordinates = predator.getCoordinates();
         predator.makeMove(map);
         assertNotNull(predator);
-        assertNull(entities.get(oldCoordinates));
-        assertEquals(herbivoreCoordinates, predator.getCoordinates());
+        assertNotNull(entities.get(oldCoordinates));
+        assertInstanceOf(Herbivore.class, entities.get(herbivoreCoordinates));
         assertInstanceOf(Rock.class, entities.get(rockCoordinates));
-        assertEquals(predator, entities.get(herbivoreCoordinates));
-        assertFalse(entities.entrySet().stream().anyMatch(e -> e.getValue() instanceof Herbivore));
+        assertEquals(9, ((Herbivore) entities.get(herbivoreCoordinates)).getHP());
     }
 
 }
