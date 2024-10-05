@@ -1,13 +1,10 @@
 package simulation;
 
 import simulation.action.Action;
-import simulation.action.ArrangeAction;
-import simulation.action.MoveAction;
-import simulation.action.RenderAction;
-import simulation.render.MapRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Главный класс симуляции
@@ -22,7 +19,6 @@ public class Simulation {
      * Счетчик ходов
      */
     private int movesCount = 0;
-    // TODO: add Actions
     /**
      * Действия над миром перед началом симуляции
      */
@@ -32,34 +28,62 @@ public class Simulation {
      */
     private List<Action> turnActions = new ArrayList<>();
 
+    private AtomicBoolean isRunning = new AtomicBoolean(false);
+
     public Simulation(Map map) {
         this.map = map;
-        initActions.add(new ArrangeAction(map));
-        turnActions.add(new RenderAction(map));
-        turnActions.add(new MoveAction(map));
-        turnActions.add(new RenderAction(map));
     }
 
     /**
      * Выполняет бесконечную симуляцию и рендер
      */
     public void startSimulation() {
-        initActions.forEach(Action::act);
-        turnActions.forEach(Action::act);
+        Thread thread = new Thread(() -> {
+            isRunning.set(true);
+            while (true) {
+                while (isRunning.get()) {
+                    nextTurn();
+                }
+            }
+        });
+
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * Приостанавливает бесконечную симуляцию и рендер
      */
     public void pauseSimulation() {
-        // TODO: realize
+        isRunning.set(false);
     }
 
     /**
      * Выполняет симуляцию и рендер для одного хода
      */
-    private void nextTurn() {
-        // TODO: realize
+    public void nextTurn() {
+        initActions.forEach(Action::act);
+        turnActions.forEach(Action::act);
+    }
+
+    /**
+     * Добавление действия выполняемого перед стартом симуляции
+     * @param action действие
+     */
+    public void addInitAction(Action action) {
+        initActions.add(action);
+    }
+
+    /**
+     * Добавление действия выполняемого каждый ход симуляции
+     * @param action действие
+     */
+    public void addTurnAction(Action action) {
+        turnActions.add(action);
     }
 
 }

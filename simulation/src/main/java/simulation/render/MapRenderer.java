@@ -11,14 +11,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * Рендерер карты
  */
 public class MapRenderer {
 
-    private static Scanner scanner = new Scanner(System.in);
     private static final String ICON_FILE_RESOURCE_PATH = "/render/entity-icon-map.txt";
     private static final String NO_ENTITY_ICON = "\uD83D\uDFEB";
 
