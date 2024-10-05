@@ -37,6 +37,8 @@ public class MoveAction extends Action {
             }
 
         }
+
+        updateMapEntities(map, movedEntities);
     }
 
     private Map makeNewMapWithChanges(Map map, HashMap<Coordinates, Entity> changes) {
@@ -49,5 +51,10 @@ public class MoveAction extends Action {
         newMapEntities.putAll(changes);
 
         return newMap;
+    }
+
+    private void updateMapEntities(Map map, HashMap<Coordinates, Entity> movedEntities) {
+        HashMap<Coordinates, Entity> mapEntities = map.getEntities();
+        mapEntities.putAll(movedEntities);
     }
 }
