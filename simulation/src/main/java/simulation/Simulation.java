@@ -68,6 +68,7 @@ public class Simulation {
     public void nextTurn() {
         initActions.forEach(Action::act);
         turnActions.forEach(Action::act);
+        movesCount++;
     }
 
     /**

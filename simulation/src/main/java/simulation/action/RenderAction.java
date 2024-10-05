@@ -10,8 +10,8 @@ public class RenderAction extends Action {
 
     @Override
     public void act() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         MapRenderer.render(map);
-
-        System.out.println("\n\n\n");
     }
 }
