@@ -1,5 +1,7 @@
 package simulation.entity.dynamic;
 
+import simulation.Coordinates;
+import simulation.Map;
 import simulation.entity.Entity;
 
 /**
@@ -16,9 +18,13 @@ public abstract class Creature extends Entity {
      */
     protected double hp;
 
+    public Creature(Coordinates coordinates) {
+        super(coordinates);
+    }
+
     /**
      * Делает ход
      */
-    public abstract void makeMove();
+    public abstract void makeMove(Map map);
 
 }

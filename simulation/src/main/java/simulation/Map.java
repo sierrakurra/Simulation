@@ -30,21 +30,21 @@ public class Map {
 
     public Map(int sizeX, int sizeY) {
         this.entities = new HashMap<>();
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
+        setSizeX(sizeX);
+        setSizeY(sizeY);
     }
 
     public static Map getDefaultMap() {
         final int sizeX = 10;
         final int sizeY = 10;
         Map map = new Map(sizeX, sizeY);
-        map.entities.put(new Coordinates(0, 10), new Rock());
-        map.entities.put(new Coordinates(3, 10), new Grass());
-        map.entities.put(new Coordinates(5, 7), new Tree());
-        map.entities.put(new Coordinates(7, 5), new Herbivore());
-        map.entities.put(new Coordinates(8, 4), new Predator());
-        map.entities.put(new Coordinates(9, 2), new Predator());
-        map.entities.put(new Coordinates(10, 0), new Herbivore());
+        map.entities.put(new Coordinates(0, 10), new Rock(new Coordinates(0, 10)));
+        map.entities.put(new Coordinates(3, 10), new Grass(new Coordinates(3, 10)));
+        map.entities.put(new Coordinates(5, 7), new Tree(new Coordinates(5, 7)));
+        map.entities.put(new Coordinates(7, 5), new Herbivore(new Coordinates(7, 5)));
+        map.entities.put(new Coordinates(8, 4), new Predator(new Coordinates(8, 4)));
+        map.entities.put(new Coordinates(9, 2), new Predator(new Coordinates(9, 2)));
+        map.entities.put(new Coordinates(10, 0), new Herbivore(new Coordinates(10, 0)));
 
         return map;
     }
@@ -71,6 +71,9 @@ public class Map {
     }
 
     public void setSizeX(int sizeX) {
+        if (sizeX <= 0) {
+            throw new IllegalArgumentException("Size X must be greater than 0");
+        }
         this.sizeX = sizeX;
     }
 
@@ -79,6 +82,9 @@ public class Map {
     }
 
     public void setSizeY(int sizeY) {
+        if (sizeY <= 0) {
+            throw new IllegalArgumentException("Size Y must be greater than 0");
+        }
         this.sizeY = sizeY;
     }
 
